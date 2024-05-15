@@ -1,0 +1,125 @@
+<div class="container mx-auto my-10">
+  <button
+    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+    (click)="back()"
+  >
+    <i class="fas fa-arrow-left mr-2"></i> Back
+  </button>
+
+  <div class="bg-white border shadow-lg rounded-2xl px-8 pt-6 pb-8 mt-6">
+    <div class="mb-6">
+      <h2 class="text-xl font-bold mb-2">Booking Details</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label
+            class="block text-gray-700 text-sm font-bold mb-2"
+            for="hotelName"
+            >Hotel Name:</label
+          >
+          <span id="hotelName" class="text-lg">{{
+            bookingDetails.hotel.hotelName
+          }}</span>
+        </div>
+        <div>
+          <label
+            class="block text-gray-700 text-sm font-bold mb-2"
+            for="roomType"
+            >Room Type:</label
+          >
+          <span id="roomType" class="text-lg">{{
+            bookingDetails.hotel.rooms[bookingDetails.roomType].roomName
+          }}</span>
+        </div>
+        <div>
+          <label
+            class="block text-gray-700 text-sm font-bold mb-2"
+            for="checkIn"
+            >Check In:</label
+          >
+          <span id="checkIn" class="text-lg">{{
+            bookingDetails.checkIn | date
+          }}</span>
+        </div>
+        <div>
+          <label
+            class="block text-gray-700 text-sm font-bold mb-2"
+            for="checkOut"
+            >Check Out:</label
+          >
+          <span id="checkOut" class="text-lg">{{
+            bookingDetails.checkOut | date
+          }}</span>
+        </div>
+        <div>
+          <label class="block text-gray-700 text-sm font-bold mb-2" for="room"
+            >Rooms :</label
+          >
+          <span id="room" class="text-lg">{{
+            bookingDetails.rooms.length
+          }}</span>
+        </div>
+        <div>
+          <label class="block text-gray-700 text-sm font-bold mb-2" for="guest"
+            >Guest:</label
+          >
+          <span id="guest" class="text-lg">{{ getGuestCount() }}</span>
+        </div>
+        <div>
+          <label
+            class="block text-gray-700 text-sm font-bold mb-2"
+            for="paymentId"
+            >Payment ID:</label
+          >
+          <span id="paymentId" class="text-lg">{{
+            bookingDetails.paymentId
+          }}</span>
+        </div>
+        <div>
+          <label
+            class="block text-gray-700 text-sm font-bold mb-2"
+            for="orderId"
+            >Order ID:</label
+          >
+          <span id="orderId" class="text-lg">{{ bookingDetails.orderId }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <h2 class="text-xl font-bold mb-2">Primary Guest</h2>
+      @for (item of bookingDetails.primaryGuest; track $index){
+      <div class="mb-4">
+        <h3 class="text-lg font-semibold mb-2">Room {{ $index + 1 }}</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div>
+            <label
+              class="block text-gray-700 text-sm font-bold mb-2"
+              for="guestName"
+              >Name:</label
+            >
+            <span id="guestName" class="text-lg"
+              >{{ item.initial }} {{ item.firstName }} {{ item.lastName }}</span
+            >
+          </div>
+          <div>
+            <label
+              class="block text-gray-700 text-sm font-bold mb-2"
+              for="guestEmail"
+              >Email:</label
+            >
+            <span id="guestEmail" class="text-lg">{{ item.email }}</span>
+          </div>
+          <div>
+            <label
+              class="block text-gray-700 text-sm font-bold mb-2"
+              for="guestPhone"
+              >Phone:</label
+            >
+            <span id="guestPhone" class="text-lg">{{ item.phone }}</span>
+          </div>
+        </div>
+      </div>
+      }
+    </div>
+  </div>
+</div>

@@ -1,0 +1,12 @@
+<!-- app.component.html -->
+
+<div class="container mx-auto">
+  <div
+    class="form-container"
+    [@flipAnimation]="showLoginForm ? 'login' : 'register'"
+  >
+    <app-login (register)="toggleForm()" *ngIf="showLoginForm"></app-login>
+    <app-register (login)="toggleForm()" *ngIf="!showLoginForm"></app-register>
+  </div>
+  <!-- <button (click)="toggleForm()">Toggle Form</button> -->
+</div>

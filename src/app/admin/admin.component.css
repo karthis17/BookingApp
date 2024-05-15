@@ -1,0 +1,7 @@
+.active {
+  @apply bg-slate-700 rounded-lg;
+}
+
+li {
+  @apply my-2;
+}

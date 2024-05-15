@@ -1,0 +1,36 @@
+<main>
+  <section class="banner bg-indigo-400 w-full h-80 grid place-content-center">
+    @defer () {
+
+    <app-search-inputs></app-search-inputs>
+    }
+  </section>
+
+  <section id="popularcities" class="bg-white py-10">
+    <h1 class="text-3xl font-semibold text-center">
+      Book Hotels at Popular Destinations
+    </h1>
+    <div
+      class="flex flex-wrap container mx-auto gap-5 px-5 justify-center rounded-lg my-10"
+    >
+      @for (item of papularCity; track $index) {
+      <div
+        class="flex rounded-lg gap-2 bg-indigo-50 border border-indigo-300 p-2 pe-9"
+      >
+        <div
+          class="img-box w-20 h-20 bg-cover rounded-md"
+          [style]="reusable.setBackGround(item.thumbnail)"
+        ></div>
+
+        <div class="px-2">
+          <h3 class="text-lg font-bold">{{ item.name }}</h3>
+          <p class="text-light text-md text-wrap">
+            Hotels, Budget Hotels, 3 Star Hotels, <br />
+            4 Star Hotels, 5 Star Hotels
+          </p>
+        </div>
+      </div>
+      }
+    </div>
+  </section>
+</main>

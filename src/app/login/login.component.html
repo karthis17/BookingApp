@@ -1,0 +1,65 @@
+<div
+  class="bg-white max-w-md mx-auto rounded-lg overflow-hidden shadow-lg my-40"
+>
+  <form
+    class="w-full max-w-md my-8 mx-auto p-8 pt-2"
+    (ngSubmit)="submit()"
+    [formGroup]="loginForm"
+  >
+    <h4 class="text-2xl text-center font-light my-3">Login</h4>
+    <div class="mb-6">
+      <label for="inline-full-name" class="block text-gray-600 font-bold mb-2"
+        >Email</label
+      >
+      <input
+        id="inline-full-name"
+        type="email"
+        formControlName="email"
+        class="input-field {{
+          showErr &&
+          (loginForm.get('email')?.hasError('email') ||
+            loginForm.get('email')?.hasError('required'))
+            ? 'border-red-400'
+            : ''
+        }}"
+        placeholder="Enter your full name"
+      />
+      @if ( showErr && (loginForm.get('email')?.hasError('email') ||
+      loginForm.get('email')?.hasError('required'))) {
+
+      <p class="text-red-500">Please enter valid email id</p>
+      }
+    </div>
+
+    <div class="mb-6">
+      <label for="inline-password" class="block text-gray-600 font-bold mb-2"
+        >Password</label
+      >
+      <input
+        id="inline-password"
+        type="password"
+        formControlName="password"
+        class="input-field {{
+          showErr && loginForm.get('password')?.hasError('required')
+            ? 'border-red-400'
+            : ''
+        }}"
+        placeholder="Enter your password"
+      />
+      @if (showErr && loginForm.get('password')?.hasError('required')) {
+      <p class="text-red-500">Password is reqired.</p>
+      }
+    </div>
+
+    <div class="flex items-center justify-between">
+      <button type="submit" class="btn btn-primary">Sign In</button>
+      <a
+        (click)="register.emit('true')"
+        class="text-blue-500 hover:underline cursor-pointer"
+        >New User? Sign Up here</a
+      >
+    </div>
+  </form>
+</div>
+
+<button (click)="get()">click</button>

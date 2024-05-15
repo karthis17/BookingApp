@@ -1,0 +1,8 @@
+<main>
+  <app-search-inputs [isHome]="false"></app-search-inputs>
+  @for (item of hotel_data; track item._id) {
+  <div (click)="nav(item._id)">
+    <app-product-container [data]="item"></app-product-container>
+  </div>
+  }
+</main>

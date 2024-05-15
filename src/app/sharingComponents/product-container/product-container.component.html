@@ -1,0 +1,66 @@
+<div class="container mx-auto px-5">
+  <div
+    class="rounded-2xl overflow-hidden bg-white shadow-lg h-fit shadow-slate-200 w-full hover:shadow-cyan-100 transition-shadow my-10 relative"
+  >
+    <div class="flex flex-col lg:flex-row p-3">
+      <div
+        class="h-[15rem] lg:w-[50em] bg-cover rounded-xl"
+        [style]="reusable.setBackGround(data.thumbnail)"
+      >
+        <!-- <img
+          [src]="data.thumbnail"
+          alt="hotal image"
+          class="h-full rounded-xl"
+        /> -->
+      </div>
+      <div class="px-3 flex w-full">
+        <div class="{{ isMobile ? 'py-4' : 'p-2' }} w-full">
+          <h3 class="font-semibold first-letter:capitalize text-2xl">
+            {{ data.hotelName }}
+          </h3>
+          <p class="text-light text-[13px]">
+            <i class="fa-solid fa-location-dot"></i> {{ data.location }}
+          </p>
+          <p class="text-[11px] font-semibold text-light my-2">
+            @for(item of data.amenities.slice(0,2); track item){
+            <span>{{ item }} | </span> }
+          </p>
+
+          <p class="line-clamp-4">{{ data.description }}</p>
+        </div>
+        <div class="lg:border-l lg:w-80 p-4" style="text-align: end">
+          <div
+            class="flex {{
+              isMobile
+                ? 'absolute rounded-lg px-5 py-3 m-4 bg-white top-2 right-3'
+                : ''
+            }} gap-2 justify-end align-items-center"
+          >
+            <div>
+              <p class="text-sm font-semibold">{{ getRatinsStatus() }}</p>
+              <p class="text-xs h-2 text-light">{{ 1222 }} reviews</p>
+            </div>
+            <div
+              class="my-auto w-8 text-center bg-teal-600 text-white h-full rounded-lg p-1"
+            >
+              <p>{{ data.ratings }}</p>
+            </div>
+          </div>
+
+          <div class="pricing">
+            <p class="text-md text-red-500 line-through mt-3">
+              {{ data.rooms[0].price | currency : "INR" }}
+            </p>
+            <p class="text-xl font-semibold">
+              {{ data.rooms[0].amount | currency : "INR" }}
+            </p>
+            <p class="text-light text-xs">
+              +{{ data.rooms[0].taxAndFee | currency : "INR" }} Taxes and fee
+            </p>
+            <p class="text-ligth text-xs">Per Night</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

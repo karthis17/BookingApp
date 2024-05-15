@@ -1,0 +1,272 @@
+<div class="container mx-auto">
+  <div class="hotel_details rounded-lg shadow p-6 my-10">
+    <div class="inputs mb-4">
+      <label class="block text-sm font-medium text-gray-700" for="name"
+        >Hotel name
+      </label>
+      <input
+        type="text"
+        [(ngModel)]="data.hotelName"
+        class="mt-1 p-2 border rounded-md w-full"
+      />
+    </div>
+    <div class="inputs mb-4">
+      <label class="block text-sm font-medium text-gray-700" for="description"
+        >Description
+      </label>
+      <input
+        type="text"
+        [(ngModel)]="data.description"
+        class="mt-1 p-2 border rounded-md w-full"
+      />
+    </div>
+    <div class="inputs mb-4">
+      <label class="block text-sm font-medium text-gray-700" for="location"
+        >Location
+      </label>
+      <input
+        type="text"
+        [(ngModel)]="data.location"
+        class="mt-1 p-2 border rounded-md w-full"
+      />
+    </div>
+    <div class="inputs mb-4">
+      <label class="block text-sm font-medium text-gray-700" for="address"
+        >Address</label
+      >
+      <input
+        type="text"
+        [(ngModel)]="data.address"
+        class="mt-1 p-2 border rounded-md w-full"
+      />
+    </div>
+    <div class="inputs mb-4">
+      <label class="block text-sm font-medium text-gray-700" for="address"
+        >Embed Map Iframe</label
+      >
+      <input
+        type="text"
+        [(ngModel)]="data.map"
+        class="mt-1 p-2 border rounded-md w-full"
+      />
+    </div>
+    <div class="inputs mb-4">
+      <label class="block text-sm font-medium text-gray-700" for="amenities"
+        >Amenities
+      </label>
+      <div
+        *ngFor="
+          let amenity of data.amenities;
+          let i = index;
+          trackBy: trackByFn
+        "
+      >
+        <input
+          type="text"
+          [(ngModel)]="data.amenities[i]"
+          class="mt-1 p-2 border rounded-md w-full"
+        />
+      </div>
+      <button
+        (click)="addAmenity()"
+        class="mt-2 px-4 py-2 bg-blue-500 text-white rounded-md"
+      >
+        Add Amenities
+      </button>
+    </div>
+    <div class="inputs mb-4">
+      <label class="block text-sm font-medium text-gray-700" for="thumbnail"
+        >Thumbnail</label
+      >
+      <input
+        type="text"
+        [(ngModel)]="data.thumbnail"
+        class="mt-1 p-2 border rounded-md w-full"
+      />
+    </div>
+    <div class="inputs mb-4">
+      <label class="block text-sm font-medium text-gray-700" for="thumbnail"
+        >Images</label
+      >
+      @for (item of data.images; track $index) {
+      <input
+        type="text"
+        [(ngModel)]="data.images[$index]"
+        class="mt-1 p-2 border rounded-md w-full"
+      />
+      }
+    </div>
+    <button
+      (click)="data.images.push('')"
+      class="mt-2 px-4 py-2 bg-blue-500 text-white rounded-md"
+    >
+      Add Images
+    </button>
+
+    <div
+      *ngFor="let room of data.rooms; let i = index; trackBy: trackByFn"
+      class="mb-8"
+    >
+      <h3 class="text-lg font-semibold mb-2">Room {{ i + 1 }}</h3>
+      <div class="inputs mb-4">
+        <label class="block text-sm font-medium text-gray-700" for="roomName"
+          >Room type</label
+        >
+        <input
+          type="text"
+          [(ngModel)]="room.roomName"
+          class="mt-1 p-2 border rounded-md w-full"
+        />
+      </div>
+      <div class="inputs mb-4">
+        <label class="block text-sm font-medium text-gray-700" for="price"
+          >Original cost</label
+        >
+        <input
+          type="text"
+          [(ngModel)]="room.price"
+          class="mt-1 p-2 border rounded-md w-full"
+        />
+      </div>
+      <div class="inputs mb-4">
+        <label class="block text-sm font-medium text-gray-700" for="amount"
+          >Discounted cost</label
+        >
+        <input
+          type="text"
+          [(ngModel)]="room.amount"
+          class="mt-1 p-2 border rounded-md w-full"
+        />
+      </div>
+      <div class="inputs mb-4">
+        <label class="block text-sm font-medium text-gray-700" for="taxAndFee"
+          >Tax and Fee</label
+        >
+        <input
+          type="text"
+          [(ngModel)]="room.taxAndFee"
+          class="mt-1 p-2 border rounded-md w-full"
+        />
+      </div>
+      <div class="inputs mb-4">
+        <label class="block text-sm font-medium text-gray-700" for="description"
+          >Description</label
+        >
+        <input
+          type="text"
+          [(ngModel)]="room.description"
+          class="mt-1 p-2 border rounded-md w-full"
+        />
+      </div>
+      <div class="inputs mb-4">
+        <label class="block text-sm font-medium text-gray-700" for="images"
+          >Images</label
+        >
+        <input
+          type="text"
+          [(ngModel)]="room.images"
+          class="mt-1 p-2 border rounded-md w-full"
+        />
+      </div>
+      <div class="inputs mb-4">
+        <label
+          class="block text-sm font-medium text-gray-700"
+          for="availableRooms"
+          >Available Rooms</label
+        >
+        <input
+          type="text"
+          [(ngModel)]="room.availableRooms"
+          class="mt-1 p-2 border rounded-md w-full"
+        />
+      </div>
+      <div class="inputs mb-4">
+        <label
+          class="block text-sm font-medium text-gray-700"
+          for="allowedGuest"
+          >Allowed Guests</label
+        >
+        <input
+          type="text"
+          [(ngModel)]="room.allowedGuest"
+          class="mt-1 p-2 border rounded-md w-full"
+        />
+      </div>
+      <div class="inputs mb-4">
+        <label class="block text-sm font-medium text-gray-700" for="benefits"
+          >Benefits
+        </label>
+        <div
+          *ngFor="
+            let benefit of room.benefits;
+            let j = index;
+            trackBy: trackByFn
+          "
+        >
+          <input
+            type="text"
+            [(ngModel)]="room.benefits[j]"
+            class="mt-1 p-2 border rounded-md w-full"
+          />
+        </div>
+        <button
+          (click)="addBenefit(room)"
+          class="mt-2 px-4 py-2 bg-blue-500 text-white rounded-md"
+        >
+          Add Benefit
+        </button>
+      </div>
+    </div>
+    <button
+      (click)="addRoom()"
+      class="mt-2 px-4 py-2 bg-blue-500 text-white rounded-md"
+    >
+      Add Room
+    </button>
+    <br />
+
+    @if (edit) {
+    <button
+      (click)="onUpdate()"
+      class="mt-2 px-4 py-2 bg-blue-500 text-white rounded-md"
+    >
+      Update
+    </button>
+    }@else {
+
+    <button
+      (click)="onSubmit()"
+      class="mt-2 px-4 py-2 bg-blue-500 text-white rounded-md"
+    >
+      Submit
+    </button>
+    }
+  </div>
+</div>
+
+<table class="table-auto container mx-auto my-20">
+  <thead>
+    <tr class="bg-gray-200">
+      <th class="px-4 py-2">_id</th>
+      <th class="px-4 py-2">hotelName</th>
+      <th class="px-4 py-2">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (item of allData; track $index) {
+
+    <tr>
+      <td class="border px-4 py-2">{{ item._id }}</td>
+      <td class="border px-4 py-2">{{ item.hotelName }}</td>
+      <td class="border px-4 py-2 flex justify-center gap-8">
+        <button (click)="update(item)">
+          <i class="fa fa-edit text-teal-600"></i>
+        </button>
+        <button (click)="onDelete(item._id)">
+          <i class="fa fa-trash text-red-600"></i>
+        </button>
+      </td>
+    </tr>
+    }
+  </tbody>
+</table>

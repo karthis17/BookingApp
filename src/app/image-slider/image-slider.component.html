@@ -1,0 +1,31 @@
+<div
+  class="fixed vw-100 vh-100 top-0 bottom-0 bg-black bg-opacity-80 items-center flex"
+>
+  <button
+    (click)="close.emit(true)"
+    class="text-4xl absolute top-20 right-20 text-white z-50"
+  >
+    <i class="fas fa-close"></i>
+  </button>
+  <div class="mx-auto relative overflow-hiddenvw-100 vh-100">
+    <div class="slider" #slider>
+      @for (image of images; track $index) {
+      <div class="slide">
+        <img [src]="image" class="w-1/2 mx-auto" alt="image" />
+      </div>
+      }
+    </div>
+    <button
+      class="prev absolute top-1/2 left-0 transform -translate-y-1/2 text-3xl text-white px-20 py-1 rounded-l-md"
+      (click)="prevSlide()"
+    >
+      <i class="fa-solid fa-angle-left"></i>
+    </button>
+    <button
+      class="next absolute top-1/2 right-0 transform -translate-y-1/2 text-3xl text-white px-20 py-1 rounded-r-md"
+      (click)="nextSlide()"
+    >
+      <i class="fa-solid fa-angle-right"></i>
+    </button>
+  </div>
+</div>

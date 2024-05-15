@@ -1,0 +1,73 @@
+<footer>
+  <div class="bg-gray-800 py-8">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <!-- Column 1 -->
+        <div class="mb-4">
+          <h3 class="text-white text-lg font-semibold mb-4">About Us</h3>
+          <p class="text-gray-300">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sodales
+            metus id lorem commodo, in bibendum risus faucibus.
+          </p>
+        </div>
+        <!-- Column 2 -->
+        <div class="mb-4">
+          <h3 class="text-white text-lg font-semibold mb-4">Useful Links</h3>
+          <ul>
+            <li class="my-2">
+              <a [routerLink]="['/']" class="text-gray-300 hover:text-white"
+                >Home</a
+              >
+            </li>
+            <li class="my-2">
+              <a
+                [routerLink]="['/hotels']"
+                class="text-gray-300 hover:text-white"
+                >Hotel</a
+              >
+            </li>
+            <li class="my-2">
+              <a
+                [routerLink]="['/about']"
+                class="text-gray-300 hover:text-white"
+                >About</a
+              >
+            </li>
+            <li class="my-2">
+              <a
+                [routerLink]="['/contact']"
+                class="text-gray-300 hover:text-white"
+                >Contact</a
+              >
+            </li>
+          </ul>
+        </div>
+        <!-- Column 3 -->
+        <div class="mb-4">
+          <h3 class="text-white text-lg font-semibold mb-4">Contact Us</h3>
+          <p class="text-gray-300">123 Main Street, City, Country</p>
+          <p class="text-gray-300">info{{ "@" }}example.com</p>
+          <p class="text-gray-300">+123 456 7890</p>
+        </div>
+        <!-- Column 4 -->
+        <div class="mb-4">
+          <h3 class="text-white text-lg font-semibold mb-4">Follow Us</h3>
+          <div class="flex space-x-4">
+            <a href="#" class="text-gray-300 hover:text-white"
+              ><i class="fab fa-facebook"></i
+            ></a>
+            <a href="#" class="text-gray-300 hover:text-white"
+              ><i class="fab fa-twitter"></i
+            ></a>
+            <a href="#" class="text-gray-300 hover:text-white"
+              ><i class="fab fa-instagram"></i
+            ></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="w-full bg-black text-gray-500 py-5">
+    <p class="text-center">Copyright {{ "@" }}2024 | Hotel Rings</p>
+  </div>
+</footer>

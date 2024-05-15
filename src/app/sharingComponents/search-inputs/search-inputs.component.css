@@ -1,0 +1,19 @@
+input {
+  background: #fff;
+  outline: 0;
+  padding: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  font-size: 18px;
+}
+
+.visible-hidden {
+  visibility: hidden;
+}
+
+._input {
+  @apply rounded-lg py-2 px-4 text-lg font-light focus:shadow-md focus:shadow-blue-200 shadow-md border-2;
+}
+
+.smaller-font {
+  font-size: 0.9rem; /* Adjust the font size as needed */
+}

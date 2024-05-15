@@ -1,0 +1,184 @@
+<div class="container mx-auto my-10">
+  <div
+    class="shadow-lg bg-white relative rounded-lg border border-slate-100 p-4"
+  >
+    <h3 class="text-2xl font-semibold my-3">{{ data.hotelName }}</h3>
+    <p class="text-light font-semibold text-sm flex items-center">
+      <i class="fa-solid pe-3 fa-location-dot"></i>{{ data.address }}
+    </p>
+    <div class="flex flex-wrap lg:-mx-3 p-3">
+      <div class="w-full lg:w-1/3 flex-auto">
+        <div
+          class="rounded-sm h-80 bg-cover"
+          [style]="reusable.setBackGround(data.thumbnail)"
+        ></div>
+      </div>
+      <div
+        class="flex lg:flex-col lg:w-auto w-full gap-2 lg:gap-0 my-3 lg:my-0"
+      >
+        @for (item of data.images.slice(0,2); track $index) {
+        <div
+          class="lg:w-48 w-1/3 rounded-sm lg:mx-2 flex-auto mb-2 h-[6.4rem] bg-cover"
+          [style]="reusable.setBackGround(item)"
+        ></div>
+        }
+        <div
+          class="lg:w-48 w-1/3 rounded-sm lg:mx-2 flex-auto relative mb-2 h-[6.4rem] bg-cover"
+          (click)="showImage = true"
+          [style]="reusable.setBackGround(data.images[0])"
+        >
+          <div
+            class="text-sm font-semibold bg-black bg-opacity-30 text-white h-full"
+            style="display: flex; justify-content: center; align-items: center"
+          >
+            <span>View all image</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="m-3 w-full lg:w-1/3 flex-auto lg:px-3">
+        <div class="flex justify-between">
+          <div class="my-1">
+            <h3 class="uppercase text-blue-500">
+              {{ data.rooms[0].roomName }}
+            </h3>
+            <p class="text-light text-sm font-semibold">
+              {{ guestCount }} x Guest | {{ roomData.length }} x Room
+            </p>
+          </div>
+          <div class="pricing text-right">
+            <p class="my-1 text-md text-red-500 line-through">
+              {{ data.rooms[0].price | currency : "INR" }}
+            </p>
+            <p class="my-1 text-xl font-semibold">
+              {{ data.rooms[0].amount | currency : "INR" }}
+            </p>
+            <p class="my-1 text-light text-xs">
+              +{{ data.rooms[0].taxAndFee | currency : "INR" }} Taxes and fee
+            </p>
+            <p class="my-1 text-light text-xs">Per Night</p>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap gap-3">
+          <p *ngFor="let item of data.amenities.slice(0, 9)" class="p-0">
+            <i class="fa-solid text-teal-500 fa-circle-check"></i> {{ item }}
+          </p>
+        </div>
+        <button
+          (click)="nav(data._id, 0)"
+          class="btnO absolute bottom-10 right-10 w-72"
+        >
+          Book Now
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="overflow-x-auto bg-white shadow-lg my-10 rounded-lg">
+    <div class="shadow-lg rounded-lg">
+      <table class="w-full border-collapse border border-gray-200">
+        <thead class="bg-orange-100">
+          <tr>
+            <th class="text-start border border-gray-200 px-4 py-2">
+              Room Type
+            </th>
+            <th class="text-start border border-gray-200 px-4 py-2">Benefit</th>
+            <th class="text-end border border-gray-200 px-4 py-2">
+              Per Night Price
+            </th>
+            <th class="border border-gray-200"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Loop through each room in the data -->
+          @for (item of data.rooms; track $index) {
+          <tr>
+            <!-- Room Name and Image -->
+            <td class="border border-gray-200 px-4 py-2 min-w-40">
+              <div class="items-center">
+                <div class="mb-3">
+                  <h3 class="text-lg font-semibold">
+                    <!-- <span class="border-teal-400 border-4 rounded-3xl"></span> -->
+                    {{ item.roomName }}
+                  </h3>
+                  <p class="text-sm text-gray-500 lg:w-[40rem] my-2">
+                    {{ item.description }}
+                  </p>
+                </div>
+                <div class="w-60 h-56 mr-4 overflow-hidden rounded-lg">
+                  <img
+                    class="w-full h-full object-cover"
+                    src="{{ item.images[0] }}"
+                    alt="{{ item.roomName }}"
+                  />
+                </div>
+              </div>
+            </td>
+            <!-- Room Benefits -->
+            <td class="border border-gray-200 px-4 py-2 min-w-40">
+              @for (benefit of item.benefits; track $index) {
+              <p>
+                <i class="fas fa-check-circle text-teal-500 mx-3 my-2"></i
+                >{{ benefit }}
+              </p>
+              }
+            </td>
+            <!-- Room Price -->
+            <td class="border border-gray-200 px-4 py-2 text-end min-w-32">
+              <div class="pricing">
+                <p class="text-red-500 line-through">
+                  {{ item.price | currency : "INR" }}
+                </p>
+                <p class="text-xl font-semibold">
+                  {{ item.amount | currency : "INR" }}
+                </p>
+                <p class="text-xs text-gray-500">
+                  +{{ item.taxAndFee | currency : "INR" }} Taxes and fees
+                </p>
+                <p class="text-xs text-gray-500">Per Night</p>
+              </div>
+            </td>
+            <!-- Booking Button -->
+            <td class="border border-gray-200 py-2 min-w-20">
+              <div class="flex justify-center">
+                <button (click)="nav(data._id, $index)" class="btnO">
+                  Book Now
+                </button>
+              </div>
+            </td>
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="shadow-lg bg-white rounded-lg p-8 w-full">
+    <h3>{{ data.hotelName }}</h3>
+
+    <p class="text-light">
+      <i class="fa-solid me-3 fa-location-dot"></i>{{ data.address }}
+    </p>
+    <div class="my-4" [innerHTML]="iframeHTML"></div>
+    <br />
+    <h3>Hotel Description</h3>
+    <p>{{ data.description }}</p>
+  </div>
+
+  <div class="shadow-lg bg-white rounded-lg p-4 my-10">
+    <h3>AMENITIES</h3>
+    <div class="flex flex-wrap gap-3 my-4">
+      <p *ngFor="let item of data.amenities" class="p-0">
+        <i class="fa-solid text-teal-500 fa-circle-check"></i> {{ item }}
+      </p>
+    </div>
+  </div>
+</div>
+@if (showImage) {
+
+<app-image-slider
+  [images]="data.images"
+  (close)="showImage = false"
+></app-image-slider>
+}

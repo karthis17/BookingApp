@@ -1,0 +1,23 @@
+<main class="h-screen flex bg-white">
+  <div class="w-1/5 text-white h-full bg-slate-800 p-5">
+    <h3><i class="fas fa-dashboard me-1"></i> Dashbord</h3>
+
+    <ul class="my-10 mx-1">
+      @for (item of navItems; track $index) {
+      <li>
+        <button
+          (click)="nav(item.link)"
+          class="w-full text-lg font-semibold text-start p-3 {{
+            display === item.name ? 'active' : ''
+          }}"
+        >
+          <i class="fas {{ item.icon }} "> </i> {{ item.name }}
+        </button>
+      </li>
+      }
+    </ul>
+  </div>
+  <div class="w-full overflow-y-auto">
+    <router-outlet></router-outlet>
+  </div>
+</main>

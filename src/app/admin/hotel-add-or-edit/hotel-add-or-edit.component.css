@@ -1,0 +1,5 @@
+/* styles.css */
+
+._input {
+  @apply rounded-lg py-2 px-4 text-lg font-light focus:shadow-md focus:shadow-blue-200 shadow-md border-2;
+}

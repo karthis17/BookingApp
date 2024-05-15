@@ -1,0 +1,7 @@
+.conatin {
+  @apply bg-white shadow-md p-4 my-5 rounded-md;
+}
+
+.form-control {
+  @apply border rounded-lg p-2 px-3 w-full;
+}

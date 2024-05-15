@@ -1,0 +1,97 @@
+<div class="container mx-auto shadow rounded-xl my-8 p-4 bg-white">
+  <select
+    class="block w-full bg-gray-200 border border-gray-300 rounded-md py-2 px-4 mb-4"
+    name="status"
+    [(ngModel)]="selectedStatus"
+    (change)="onStatusChange(selectedStatus)"
+  >
+    <option value="Upcoming">Upcoming</option>
+    <option value="Ongoing">Ongoing</option>
+    <option value="History">History</option>
+  </select>
+
+  <div class="overflow-x-auto">
+    <table class="w-full border-collapse border border-gray-300">
+      <thead>
+        <tr class="bg-gray-100">
+          <th
+            class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase border-b border-gray-300"
+          >
+            ID
+          </th>
+          <th
+            class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase border-b border-gray-300"
+          >
+            Customer
+          </th>
+          <th
+            class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase border-b border-gray-300"
+          >
+            Hotel
+          </th>
+          <th
+            class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase border-b border-gray-300"
+          >
+            Room Type
+          </th>
+          <th
+            class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase border-b border-gray-300"
+          >
+            Mobile
+          </th>
+          <th
+            class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase border-b border-gray-300"
+          >
+            CheckIn
+          </th>
+          <th
+            class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase border-b border-gray-300"
+          >
+            CheckOut
+          </th>
+          <th
+            class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase border-b border-gray-300"
+          >
+            Payment
+          </th>
+          <th
+            class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase border-b border-gray-300"
+          ></th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-200">
+        @for(item of tableDate;track $index){
+        <tr class="{{ item.id % 2 === 0 ? 'bg-gray-50' : 'bg-white' }}">
+          <td class="p-4 whitespace-nowrap border border-gray-300">
+            {{ item._id }}
+          </td>
+          <td class="p-4 whitespace-nowrap border border-gray-300">
+            {{ item.primaryGuest[0].firstName }}
+          </td>
+          <td class="p-4 whitespace-nowrap border border-gray-300">
+            {{ item.hotel.hotelName }}
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap border border-gray-300">
+            {{ item.hotel.rooms[item.roomType].roomName }}
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap border border-gray-300">
+            {{ item.primaryGuest[0].phone }}
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap border border-gray-300">
+            {{ item.checkIn | date }}
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap border border-gray-300">
+            {{ item.checkOut | date }}
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap border border-gray-300">
+            Paid
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap border border-gray-300">
+            <span class="cursor-pointer" (click)="nav(item._id)"> ••• </span>
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>

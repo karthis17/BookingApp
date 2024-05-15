@@ -1,0 +1,10 @@
+.slider {
+  display: flex;
+  transition: transform 0.5s ease;
+}
+
+.slide {
+  flex: 0 0 100%;
+  max-width: 100%;
+  overflow: hidden;
+}

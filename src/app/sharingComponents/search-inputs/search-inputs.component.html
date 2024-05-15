@@ -1,0 +1,277 @@
+<div
+  class="flex {{
+    isBooking ? 'bg-indigo-50 ' : 'bg-white shadow-lg m-5'
+  }} w-fit rounded-lg  container mx-auto"
+>
+  @if (!isBooking) {
+
+  <div
+    class="py-2 hover:bg-indigo-50 px-8 rounded-s-lg"
+    (click)="
+      !isBooking ? (searchForm.location = '') : '';
+      showLocInput = true && !isBooking
+    "
+  >
+    <label for="city" class="text-light text-lg font-medium">
+      Enter city name, loaction
+    </label>
+    <br />
+    @if(showLocInput){
+    <input
+      type="text"
+      name=""
+      id="city"
+      [(ngModel)]="searchForm.location"
+      list="cityList"
+      (change)="showLocInput = false"
+    />
+    }@else {
+    <div class="m-2">
+      <h3 class="text-2xl font-bold">
+        {{ searchForm.location }}
+      </h3>
+
+      @if (isHome) {
+      <p class="text-ligth">India</p>
+      }
+    </div>
+    }
+    <datalist id="cityList">
+      @for (item of popularCitiesInIndia; track $index) {
+      <option [value]="item">{{ item }}</option>
+      }
+    </datalist>
+  </div>
+  }
+  <div
+    class="py-2 hover:bg-indigo-50 px-8"
+    (click)="checkIn = true && !isBooking"
+  >
+    <label for="date" class="text-light text-lg font-medium"> CheckIn </label>
+    <br />
+    @if(checkIn){
+    <input
+      type="date"
+      id="date"
+      [(ngModel)]="searchForm.checkIn"
+      (change)="checkIn = false; setCheckOut()"
+      [attr.min]="parseNormalDate()"
+    />
+    }@else {
+    <div class="m-2">
+      <h3 class="text-2xl font-bold">
+        {{ parseDate(searchForm.checkIn) | date }}
+      </h3>
+      @if (isHome) {
+      <p>
+        {{ parseDate(searchForm.checkIn) | date : "EEEE" }}
+      </p>
+      }
+    </div>
+    }
+  </div>
+  <div
+    class="py-2 hover:bg-indigo-50 px-8"
+    (click)="checkOut = true && !isBooking"
+  >
+    <label for="date-out" class="text-light text-lg font-medium">
+      CheckOut
+    </label>
+    <br />
+    @if(checkOut){
+    <input
+      type="date"
+      id="date-out"
+      [attr.min]="parseNormalDate(searchForm.checkIn)"
+      [(ngModel)]="searchForm.checkOut"
+      (change)="checkOut = false"
+    />
+    }@else {
+    <div class="m-2">
+      <h3 class="text-2xl font-bold">
+        {{ parseDate(searchForm.checkOut) | date }}
+      </h3>
+      @if (isHome) {
+      <p>
+        {{ parseDate(searchForm.checkOut) | date : "EEEE" }}
+      </p>
+      }
+    </div>
+    }
+  </div>
+  <div class="py-2 hover:bg-indigo-50 px-8 relative">
+    <label for="city" class="text-light text-lg font-medium">
+      Rooms & Guests
+    </label>
+    <br />
+    <div
+      class="m-2"
+      style="display: flex; align-items: center; gap: 10px"
+      (click)="roomOptions = !roomOptions"
+    >
+      <h3 class="text-2xl font-bold">
+        {{ searchForm.rooms.length }}
+        <sub class="text-sm text-light font-light">Rooms</sub>
+        {{ fetchNoOfGuest() }}
+        <sub class="text-sm text-light font-light">Guests</sub>
+      </h3>
+      @if(roomOptions && !isBooking){
+
+      <i class="fas fa-angle-up"></i>
+      }@else {
+
+      <i class="fas {{ !isBooking ? 'fa-angle-down' : '' }}"></i>
+      }
+    </div>
+    @if(!isBooking){
+
+    <div
+      class="absolute bg-white  z-10 left-[0px] right-[-60px] {{
+        isHome ? 'top-[100px]' : 'top-[80px ]'
+      }} border rounded-lg shadow-lg transition-all p-4 py-2
+    {{
+        !roomOptions
+          ? '-translate-y-5 opacity-0 visible-hidden '
+          : 'visible opacity-100 translate-y-0'
+      }}"
+    >
+      <div *ngFor="let room of searchForm.rooms; let i = index">
+        <div class="mb-2">
+          <span class="text-lg font-semibold">Room</span> : {{ i + 1 }}
+        </div>
+
+        <div class="flex justify-between items-center my-4">
+          <span class="text-md font-semibold">Adult</span>
+          <div>
+            <span
+              class="bg-indigo-50 p-3 py-1 border text-md font-semibold cursor-pointer"
+              (click)="
+                room.guest.adult > 0
+                  ? (room.guest.adult = room.guest.adult - 1)
+                  : ''
+              "
+              >-</span
+            >
+            <span class="p-3 py-1 text-md font-semibold border">{{
+              room.guest.adult
+            }}</span>
+            <span
+              class="bg-indigo-50 p-3 py-1 border text-mg font-semibold cursor-pointer"
+              (click)="room.guest.adult = room.guest.adult + 1"
+              >+</span
+            >
+          </div>
+        </div>
+        <div class="flex justify-between items-center my-4">
+          <span class="text-md font-semibold">Children</span>
+          <div class="min-w-11">
+            <span
+              class="bg-indigo-50 p-3 py-1 border text-md font-semibold cursor-pointer"
+              (click)="
+                room.guest.children > 0
+                  ? (room.guest.children = room.guest.children - 1)
+                  : ''
+              "
+              >-</span
+            >
+            <span class="p-3 py-1 text-md font-semibold border min-w-[50px ]">{{
+              room.guest.children
+            }}</span>
+            <span
+              class="bg-indigo-50 p-3 py-1 border text-mg font-semibold cursor-pointer"
+              (click)="room.guest.children = room.guest.children + 1"
+              >+</span
+            >
+          </div>
+        </div>
+      </div>
+
+      <button
+        (click)="
+          searchForm.rooms.push({ room: 1, guest: { adult: 1, children: 0 } })
+        "
+        class="btn btnO"
+      >
+        Add
+      </button>
+    </div>
+    }
+  </div>
+
+  @if(!isBooking){
+  <div class="py-2 hover:bg-blue-50 px-8">
+    <label for="price" class="text-light text-lg font-medium">
+      Price per Night
+    </label>
+    <br />
+
+    <div
+      class="m-2 relative"
+      style="display: flex; align-items: center; gap: 10px"
+      (click)="showPriceFilter = !showPriceFilter"
+    >
+      <h3 class="text-2xl font-bold">
+        {{ searchForm.price }}
+      </h3>
+      @if(showPriceFilter){
+
+      <i class="fas fa-angle-up"></i>
+      }@else {
+
+      <i class="fas fa-angle-down"></i>
+      }
+
+      <div
+        class="absolute bg-white  z-10 left-[-40px] right-[-40px] {{
+          isHome ? 'top-[60px]' : 'top-[40px]'
+        }} border rounded-lg shadow-lg transition-all
+        {{
+          !showPriceFilter
+            ? '-translate-y-5 opacity-0 visible-hidden '
+            : 'visible opacity-100 translate-y-0'
+        }}"
+      >
+        <p
+          *ngFor="let price of priceFilter; let i = index"
+          class="border-b p-2 px-4 cursor-pointer border-slate-100"
+          (click)="
+            searchForm.price =
+              '₹' +
+              priceFilter[i] +
+              ' - ₹' +
+              (i < priceFilter.length - 1 ? priceFilter[i + 1] : 'Above')
+          "
+        >
+          {{
+            "₹" +
+              priceFilter[i] +
+              " - ₹" +
+              (i < priceFilter.length - 1 ? priceFilter[i + 1] : "Above")
+          }}
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="rounded-e-lg overflow-hidden">
+    <button
+      type="submit"
+      (click)="onSubmit()"
+      class="bg-orange-300 w-full h-full px-10 text-white text-xl font-bold"
+    >
+      Search
+    </button>
+  </div>
+  }
+</div>
+
+<!-- 
+<div class="flex md:justify-between">
+    <div class="md:w-1/2 mb-4 md:mb-0">
+    </div>
+    <div class="md:w-1/2 mb-4 md:mb-0">
+    </div>
+    <div class="md:w-1/2">
+    </div>
+  </div>
+   -->
