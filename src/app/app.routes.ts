@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { AdminComponent } from './admin/admin.component';
+import { authGuard } from './auth.guard';
 
 export const routes: Routes = [
     {
@@ -16,12 +17,17 @@ export const routes: Routes = [
         path: 'login', loadComponent: () => import('../app/user-active/user-active.component').then((c) => c.UserActiveComponent)
     },
     {
-        path: 'bookings/:id', loadComponent: () => import('../app/booking-page/booking-page.component').then((c) => c.BookingPageComponent)
+        path: 'bookings/:id', canActivate: [authGuard], loadComponent: () => import('../app/booking-page/booking-page.component').then((c) => c.BookingPageComponent)
     }, {
         path: 'contact', loadComponent: () => import('../app/contact/contact.component').then((c) => c.ContactComponent)
     },
     {
         path: 'about', loadComponent: () => import('../app/about/about.component').then((c) => c.AboutComponent)
+    }, {
+        path: 'booking/history', loadComponent: () => import('../app/booking-views-user/booking-views-user.component').then((c) => c.BookingViewsUserComponent)
+    },
+    {
+        path: 'booking/view/:id', loadComponent: () => import('../app/admin/booking-views/booking-views.component').then((c) => c.BookingViewsComponent)
     },
     {
         path: 'admin', component: AdminComponent, children: [
@@ -32,3 +38,5 @@ export const routes: Routes = [
         ]
     },
 ];
+
+

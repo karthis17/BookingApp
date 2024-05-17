@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UserAuthService } from '../service/user-auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +14,7 @@ export class LoginComponent {
 
   @Output() register = new EventEmitter();
 
-  constructor(private builder: FormBuilder, private auth: UserAuthService) { }
+  constructor(private builder: FormBuilder, private auth: UserAuthService, private router: Router) { }
 
   showErr = false;
 
@@ -26,7 +27,7 @@ export class LoginComponent {
     if (this.loginForm.valid) {
       this.auth.login(this.loginForm.value).subscribe(data => {
         console.log(data);
-
+        this.router.navigate(['/']);
       });
     } else {
       this.showErr = true;

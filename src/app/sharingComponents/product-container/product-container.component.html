@@ -2,9 +2,9 @@
   <div
     class="rounded-2xl overflow-hidden bg-white shadow-lg h-fit shadow-slate-200 w-full hover:shadow-cyan-100 transition-shadow my-10 relative"
   >
-    <div class="flex flex-col lg:flex-row p-3">
+    <div class="flex {{ isMobile ? 'flex-col' : 'flex-row' }} p-3">
       <div
-        class="h-[15rem] lg:w-[50em] bg-cover rounded-xl"
+        class="h-[15rem] {{ isMobile ? '' : 'w-[50em]' }} bg-cover rounded-xl"
         [style]="reusable.setBackGround(data.thumbnail)"
       >
         <!-- <img
@@ -26,9 +26,14 @@
             <span>{{ item }} | </span> }
           </p>
 
-          <p class="line-clamp-4">{{ data.description }}</p>
+          <p class="{{ isMobile ? 'line-clamp-2' : 'line-clamp-4' }}">
+            {{ data.description }}
+          </p>
         </div>
-        <div class="lg:border-l lg:w-80 p-4" style="text-align: end">
+        <div
+          class=" {{ isMobile ? '' : 'border-l w-80' }}  p-4"
+          style="text-align: end"
+        >
           <div
             class="flex {{
               isMobile

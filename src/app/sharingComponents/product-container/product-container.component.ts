@@ -13,6 +13,8 @@ import { Reusable } from '../../shared/reusableFucn';
 export class ProductContainerComponent {
   @Input() data: any;
 
+  @Input() isSimilarContainer: boolean = false;
+
   isMobile = false;
 
   @HostListener('window:resize', ['$event'])
@@ -25,9 +27,12 @@ export class ProductContainerComponent {
   reusable: Reusable = new Reusable();
 
   setMobile() {
-    if (window.innerWidth <= 1023) {
+    if (window.innerWidth <= 1023 && !this.isSimilarContainer) {
       this.isMobile = true;
-    } else {
+    } else if (this.isSimilarContainer) {
+      this.isMobile = true;
+    }
+    else {
       this.isMobile = false
     }
   }

@@ -1,4 +1,5 @@
 <div class="container mx-auto shadow rounded-xl my-8 p-4 bg-white">
+  @if (isAdmin) {
   <select
     class="block w-full bg-gray-200 border border-gray-300 rounded-md py-2 px-4 mb-4"
     name="status"
@@ -9,16 +10,24 @@
     <option value="Ongoing">Ongoing</option>
     <option value="History">History</option>
   </select>
+  }
 
   <div class="overflow-x-auto">
     <table class="w-full border-collapse border border-gray-300">
       <thead>
         <tr class="bg-gray-100">
           <th
+            class="px-2 py-3 text-left text-xs font-medium text-gray-700 uppercase border-b border-gray-300"
+          >
+            S.No
+          </th>
+          @if (isAdmin) {
+          <th
             class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase border-b border-gray-300"
           >
             ID
           </th>
+          }
           <th
             class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase border-b border-gray-300"
           >
@@ -62,9 +71,14 @@
       <tbody class="divide-y divide-gray-200">
         @for(item of tableDate;track $index){
         <tr class="{{ item.id % 2 === 0 ? 'bg-gray-50' : 'bg-white' }}">
+          <td class="p-2 whitespace-nowrap border border-gray-300">
+            {{ $index + 1 }}
+          </td>
+          @if (isAdmin) {
           <td class="p-4 whitespace-nowrap border border-gray-300">
             {{ item._id }}
           </td>
+          }
           <td class="p-4 whitespace-nowrap border border-gray-300">
             {{ item.primaryGuest[0].firstName }}
           </td>

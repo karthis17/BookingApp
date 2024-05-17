@@ -1,48 +1,235 @@
-<nav class="w-30 bg-white shadow p-5">
-  <div class="container mx-auto flex items-center">
-    <div class="logo flex-auto">
-      <h3>Hotel Rings</h3>
+<nav class="bg-white shadow-md py-6 px-5">
+  <div class="container mx-auto flex items-center justify-between">
+    <div class="logo">
+      <h3 class="text-xl font-semibold">Hotel Rings</h3>
     </div>
-    <div class="flex-auto"></div>
-
-    <div class="nav-items lg:w-1/3">
-      <ul class="flex justify-between items-center">
+    <div class="flex items-center space-x-4">
+      <!-- Mobile Menu Button -->
+      <button
+        class="lg:hidden text-gray-600 hover:text-gray-700 focus:outline-none focus:text-gray-700"
+        (click)="toggle = !toggle"
+        id="menu-toggle"
+      >
+        <svg
+          class="h-6 w-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M4 6h16M4 12h16M4 18h16"
+          ></path>
+        </svg>
+      </button>
+      <!-- Desktop Menu -->
+      <ul class="hidden lg:flex lg:space-x-8">
         <li
-          class="{{ active == 'home' ? 'active' : '' }}"
           [routerLink]="['/']"
-          (click)="active = 'home'"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
         >
           Home
         </li>
-        <li
-          [routerLink]="['/hotels']"
-          class="{{ active == 'hotel' ? 'active' : '' }}"
-          (click)="active = 'hotel'"
-        >
-          Hotels
-        </li>
-        <li
-          class="{{ active == 'about' ? 'active' : '' }}"
-          (click)="active = 'about'"
-          [routerLink]="['/about']"
-        >
-          About
-        </li>
-        <li
-          class="{{ active == 'contact' ? 'active' : '' }}"
-          (click)="active = 'contact'"
-          [routerLink]="['/contact']"
-        >
-          Contact
-        </li>
-        <li
-          [routerLink]="['/login']"
-          class="{{ active == 'login' ? 'active' : '' }}"
-          (click)="active = 'login'"
-        >
-          signUp/siginIn
+        <li [routerLink]="['/hotels']" routerLinkActive="active">Hotels</li>
+        <li [routerLink]="['/about']" routerLinkActive="active">About</li>
+        <li [routerLink]="['/contact']" routerLinkActive="active">Contact</li>
+        <li>
+          @if (!user) {
+
+          <div [routerLink]="['/login']" routerLinkActive="active">
+            Sign Up / Sign In
+          </div>
+          }@else {
+
+          <div class="relative inline-block text-left">
+            <button
+              type="button"
+              class="flex items-center"
+              id="options-menu"
+              aria-haspopup="true"
+              aria-expanded="true"
+              routerLinkActive="active"
+              (click)="dropdown = !dropdown"
+            >
+              {{ user.username }}
+              <!-- Heroicon name: solid/chevron-down -->
+
+              @if (dropdown) {
+
+              <svg
+                class="-mr-1 ml-2 h-5 w-5 transform rotate-180"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                aria-hidden="true"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M10 12l-5-5 1.5-1.5L10 9l3.5-3.5L15 7l-5 5z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+              }@else {
+
+              <svg
+                class="-mr-1 ml-2 h-5 w-5"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                aria-hidden="true"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M10 12l-5-5 1.5-1.5L10 9l3.5-3.5L15 7l-5 5z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+              }
+            </button>
+
+            <div
+              class="origin-top-right absolute right-0 mt-2 transition-all {{
+                !dropdown
+                  ? '-translate-y-3 opacity-0 '
+                  : 'translate-y-0 opacity-100 '
+              }} w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
+              [style]="!dropdown ? 'visibility: hidden' : 'visibility: visible'"
+              role="menu"
+              aria-orientation="vertical"
+              aria-labelledby="options-menu"
+            >
+              <div class="py-1" role="none">
+                <!-- Dropdown items -->
+                <a
+                  [routerLink]="['/booking/history']"
+                  class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                  role="menuitem"
+                  >Bookings</a
+                >
+                <a
+                  href="#"
+                  class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                  role="menuitem"
+                  >Item 2</a
+                >
+                <a
+                  href="#"
+                  class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                  role="menuitem"
+                  >Item 3</a
+                >
+              </div>
+            </div>
+          </div>
+          }
         </li>
       </ul>
     </div>
   </div>
 </nav>
+
+<div
+  class="lg:hidden transition-all {{
+    toggle ? 'translate-y-0 opacity-100 ' : '-translate-y-2 opacity-0  hidden'
+  }}"
+  id="mobile-menu"
+>
+  <ul class="bg-white border-t border-gray-200 p-4">
+    <li
+      [routerLink]="['/']"
+      (click)="active = 'home'"
+      [class.active]="active == 'home'"
+    >
+      Home
+    </li>
+    <li
+      [routerLink]="['/hotels']"
+      (click)="active = 'hotel'"
+      [class.active]="active == 'hotel'"
+    >
+      Hotels
+    </li>
+    <li
+      [routerLink]="['/about']"
+      (click)="active = 'about'"
+      [class.active]="active == 'about'"
+    >
+      About
+    </li>
+    <li
+      [routerLink]="['/contact']"
+      (click)="active = 'contact'"
+      [class.active]="active == 'contact'"
+    >
+      Contact
+    </li>
+    <li
+      [routerLink]="['/login']"
+      (click)="active = 'login'"
+      [class.active]="active == 'login'"
+    >
+      <!-- <select name="" id="login">
+        <option value="Sign Up / Sign In">Sign Up / Sign In</option>
+        <option value="Bookings">Bookings</option>
+      </select> -->
+
+      <div class="relative inline-block text-left">
+        <button
+          type="button"
+          class="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-100"
+          id="options-menu"
+          aria-haspopup="true"
+          aria-expanded="true"
+        >
+          Open Menu
+          <!-- Heroicon name: solid/chevron-down -->
+          <svg
+            class="-mr-1 ml-2 h-5 w-5"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+            aria-hidden="true"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M10 12l-5-5 1.5-1.5L10 9l3.5-3.5L15 7l-5 5z"
+              clip-rule="evenodd"
+            />
+          </svg>
+        </button>
+
+        <div
+          class="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
+          role="menu"
+          aria-orientation="vertical"
+          aria-labelledby="options-menu"
+        >
+          <div class="py-1" role="none">
+            <!-- Dropdown items -->
+            <a
+              href="#"
+              class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+              role="menuitem"
+              >Item 1</a
+            >
+            <a
+              href="#"
+              class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+              role="menuitem"
+              >Item 2</a
+            >
+            <a
+              href="#"
+              class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+              role="menuitem"
+              >Item 3</a
+            >
+          </div>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>

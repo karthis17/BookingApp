@@ -55,4 +55,8 @@ export class HotelService {
     return this.http.delete(this.baseUrl + '/hotel/' + id, this._options);
   }
 
+  similar(location: any) {
+    return this.http.get(this.baseUrl + '/hotel/similar/' + location);
+  }
+
 }

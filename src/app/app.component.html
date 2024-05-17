@@ -3,6 +3,8 @@
 }
 <router-outlet></router-outlet>
 
+@if (!isAdminRoute()) {
 <app-footer></app-footer>
+}
 <!-- <app-hotel-add-or-edit></app-hotel-add-or-edit> -->
 <!-- <app-search-inputs></app-search-inputs> -->

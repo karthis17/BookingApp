@@ -1,5 +1,5 @@
 import { DatePipe, NgFor } from '@angular/common';
-import { Component, Input, Output } from '@angular/core';
+import { Component, HostListener, Input, Output } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { PopularCities } from '../../shared/hotelData';
 import { HotelService } from '../../service/hotel.service';
@@ -14,6 +14,16 @@ import { Router } from '@angular/router';
   styleUrl: './search-inputs.component.css'
 })
 export class SearchInputsComponent {
+
+  isMobile: boolean = window.innerWidth <= 1024;
+
+  @HostListener('window:resize', ['$event'])
+  OnResize(event: Event) {
+    if (window.innerWidth <= 1024)
+      this.isMobile = true;
+    else
+      this.isMobile = false;
+  }
 
   constructor(private hotel: HotelService, private router: Router) { }
 
@@ -75,6 +85,7 @@ export class SearchInputsComponent {
         this.searchForm.rooms = JSON.parse(this.searchForm.rooms)
         console.log(filter);
         this.searchForm.price = filter.price || this.priceFilter[1] + '-' + this.priceFilter[2];
+        console.log(this.searchForm);
       }
     })
   }

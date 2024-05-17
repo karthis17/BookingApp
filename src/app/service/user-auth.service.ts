@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,8 @@ export class UserAuthService {
   baseUrl = 'http://localhost:3000/api/user';
 
   _options = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }), withCredentials: true };
+
+  isAuthenticated = new BehaviorSubject<any>(false);
 
 
   login(data: any) {

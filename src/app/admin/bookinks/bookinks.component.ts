@@ -1,9 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ActiveWindowService } from '../../service/active-window.service';
 import { BookinsService } from '../../service/bookins.service';
 import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
-import { toArray } from 'rxjs';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -14,6 +13,8 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './bookinks.component.css'
 })
 export class BookinksComponent {
+
+  @Input() isAdmin: boolean = true;
 
   constructor(private activeWin: ActiveWindowService, private bookings: BookinsService, private router: Router) {
 
@@ -27,7 +28,7 @@ export class BookinksComponent {
   ongoingBookings: any[] = [];
   historicalBookings: any[] = [];
 
-  tableDate: any[] = [];
+  @Input() tableDate: any[] = [];
 
   ngOnInit() {
     this.bookings.getBookings().subscribe((bookings: any) => {
@@ -68,7 +69,10 @@ export class BookinksComponent {
   }
 
   nav(id: any) {
-    this.router.navigateByUrl(`admin/bookings/view/${id}`);
+    if (this.isAdmin)
+      this.router.navigateByUrl(`admin/bookings/view/${id}`);
+    else
+      this.router.navigateByUrl(`booking/view/${id}`);
   }
 
 }

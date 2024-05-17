@@ -2,7 +2,9 @@
   <div
     class="shadow-lg bg-white relative rounded-lg border border-slate-100 p-4"
   >
-    <h3 class="text-2xl font-semibold my-3">{{ data.hotelName }}</h3>
+    <h3 class="text-2xl font-semibold my-3">
+      {{ data.hotelName | titlecase }}
+    </h3>
     <p class="text-light font-semibold text-sm flex items-center">
       <i class="fa-solid pe-3 fa-location-dot"></i>{{ data.address }}
     </p>
@@ -163,7 +165,7 @@
     <div class="my-4" [innerHTML]="iframeHTML"></div>
     <br />
     <h3>Hotel Description</h3>
-    <p>{{ data.description }}</p>
+    <p>{{ data.description | titlecase }}</p>
   </div>
 
   <div class="shadow-lg bg-white rounded-lg p-4 my-10">
@@ -174,7 +176,23 @@
       </p>
     </div>
   </div>
+
+  <div class="shadow-lg bg-white rounded-lg p-4 my-10">
+    <h3>SIMILAR HOTELS</h3>
+
+    <div class="flex overflow-x-auto">
+      @for (item of similarHotel; track $index) {
+      <app-product-container
+        [routerLink]="['/hotel/' + item._id]"
+        class="similar-hotel-item"
+        [isSimilarContainer]="true"
+        [data]="item"
+      ></app-product-container>
+      }
+    </div>
+  </div>
 </div>
+
 @if (showImage) {
 
 <app-image-slider

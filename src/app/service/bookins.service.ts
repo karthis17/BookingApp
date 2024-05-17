@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +25,10 @@ export class BookinsService {
 
   verrifyPayment(bookings: any) {
     return this.http.post(this.baseUrl + '/paymentVerify', bookings, this._options);
+  }
+
+  getUserBookings() {
+    return this.http.get(this.baseUrl + '/user', { withCredentials: true });
   }
 
 
