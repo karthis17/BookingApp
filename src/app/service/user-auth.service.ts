@@ -9,7 +9,8 @@ export class UserAuthService {
 
   constructor(private http: HttpClient) { }
 
-  baseUrl = 'http://localhost:3000/api/user';
+  // baseUrl = 'http://localhost:3000/api/user';
+  baseUrl = 'https://bookingapp-api-42gx.onrender.com/api/user';
 
   _options = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }), withCredentials: true };
 

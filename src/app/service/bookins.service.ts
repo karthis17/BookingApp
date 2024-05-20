@@ -10,7 +10,8 @@ export class BookinsService {
 
   constructor(private http: HttpClient) { }
 
-  baseUrl = 'http://localhost:3000/api/bookings';
+  // baseUrl = 'http://localhost:3000/api/bookings';
+  baseUrl = 'https://bookingapp-api-42gx.onrender.com/api/bookings';
 
   _options = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }), withCredentials: true };
 

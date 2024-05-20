@@ -9,7 +9,8 @@ export class HotelService {
 
   constructor(private http: HttpClient) { }
 
-  baseUrl = 'http://localhost:3000/api';
+  // baseUrl = 'http://localhost:3000/api';
+  baseUrl = 'https://bookingapp-api-42gx.onrender.com/api';
 
   filters = new BehaviorSubject<any>({
     location: 'Chennai',
