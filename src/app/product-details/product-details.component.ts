@@ -6,6 +6,7 @@ import { HotelService } from '../service/hotel.service';
 import { ImageSliderComponent } from '../image-slider/image-slider.component';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ProductContainerComponent } from '../sharingComponents/product-container/product-container.component';
+import { Hotel } from '../model/hotel.model';
 
 @Component({
   selector: 'app-product-details',
@@ -16,11 +17,18 @@ import { ProductContainerComponent } from '../sharingComponents/product-containe
 })
 export class ProductDetailsComponent {
 
-  constructor(private route: ActivatedRoute, private hotel: HotelService, private router: Router, private el: ElementRef, private renderer: Renderer2, private sanitizer: DomSanitizer) { }
+  constructor(private route: ActivatedRoute,
+    private hotel: HotelService,
+    private router: Router,
+    private el: ElementRef,
+    private renderer: Renderer2,
+    private sanitizer: DomSanitizer) { }
+
+
   iframeHTML!: SafeHtml;
   iframeWidth: string = '100%';
   iframeHeight: string = '500px';
-  data: any;
+  data!: Hotel;
   showImage: boolean = false;
   roomData: any;
   reusable: Reusable = new Reusable();

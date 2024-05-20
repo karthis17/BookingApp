@@ -1,8 +1,137 @@
 <main>
   <app-search-inputs [isHome]="false"></app-search-inputs>
-  @for (item of hotel_data; track item._id) {
-  <div (click)="nav(item._id)">
-    <app-product-container [data]="item"></app-product-container>
+
+  <div class="lg:flex lg:p-20 gap-10">
+    <div class="lg:min-w-80 lg:p-0 px-5">
+      <div class="my-10 bg-white rounded-xl shadow border-blue-100 p-10">
+        <h3 class="mb-3">Filter</h3>
+
+        <div class="my-8">
+          <div class="flex justify-between items-center">
+            <h4>PRICE (PER NIGHT)</h4>
+            <button (click)="setActiveTab('price')" class="text-lg font-bold">
+              {{ activeTab === "price" ? "-" : "+" }}
+            </button>
+          </div>
+
+          <div
+            class="transition-max-height duration-200 {{
+              activeTab !== 'price' ? 'max-h-0 overflow-hidden' : 'max-h-96'
+            }}  "
+          >
+            <ul>
+              @for (price of priceFilter; track $index) {
+              <li>
+                <input
+                  type="checkbox"
+                  name=""
+                  id=""
+                  (change)="addPrice($index)"
+                />
+                {{ price }}
+              </li>
+              }
+            </ul>
+          </div>
+        </div>
+
+        <div class="my-8">
+          <div class="flex justify-between items-center">
+            <h4>LOCATIONS</h4>
+            <button
+              (click)="setActiveTab('location')"
+              class="text-lg font-bold"
+            >
+              {{ activeTab === "location" ? "-" : "+" }}
+            </button>
+          </div>
+          <div
+            class="transition-max-height duration-200 {{
+              activeTab !== 'location'
+                ? 'max-h-0 overflow-hidden'
+                : 'max-h-96 overflow-auto'
+            }}  "
+          >
+            <ul>
+              @for (loc of location; track $index) {
+              <li>
+                <input
+                  type="checkbox"
+                  name=""
+                  id=""
+                  (change)="addLocation($index)"
+                />
+                {{ loc }}
+              </li>
+              }
+            </ul>
+          </div>
+        </div>
+
+        <div class="my-8">
+          <div class="flex justify-between items-center">
+            <h4>STAR RATING</h4>
+            <button (click)="setActiveTab('star')" class="text-lg font-bold">
+              {{ activeTab === "star" ? "-" : "+" }}
+            </button>
+          </div>
+          <div
+            class="transition-max-height duration-200 {{
+              activeTab !== 'star' ? 'max-h-0 overflow-hidden' : 'max-h-96'
+            }}  "
+          >
+            <ul>
+              @for (loc of [5,4,3,2,1,'Unrated ']; track $index) {
+              <li>
+                <input
+                  type="checkbox"
+                  name=""
+                  id=""
+                  (change)="addStarRating($index)"
+                />
+                {{ loc }} Star
+              </li>
+              }
+            </ul>
+          </div>
+        </div>
+
+        <div class="my-8">
+          <div class="flex justify-between items-center">
+            <h4>AMENITIES</h4>
+            <button (click)="setActiveTab('review')" class="text-lg font-bold">
+              {{ activeTab === "review" ? "-" : "+" }}
+            </button>
+          </div>
+          <div
+            class="transition-max-height duration-200 {{
+              activeTab !== 'review' ? 'max-h-0 overflow-hidden' : 'max-h-96'
+            }}  "
+          >
+            <ul>
+              @for (amen of amenities; track $index) {
+              <li>
+                <input
+                  type="checkbox"
+                  name=""
+                  id=""
+                  (change)="addAmenities($index)"
+                />
+                {{ amen | titlecase }}
+              </li>
+              }
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="">
+      @for (item of hotel_data; track item._id) {
+      <div (click)="nav(item._id)">
+        <app-product-container [data]="item"></app-product-container>
+      </div>
+      }
+    </div>
   </div>
-  }
 </main>

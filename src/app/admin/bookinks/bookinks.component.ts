@@ -31,11 +31,12 @@ export class BookinksComponent {
   @Input() tableDate: any[] = [];
 
   ngOnInit() {
-    this.bookings.getBookings().subscribe((bookings: any) => {
-      console.log(bookings);
-      this.bookingsAll = bookings;
-      this.categorizeBookings();
-    });
+    if (this.isAdmin)
+      this.bookings.getBookings().subscribe((bookings: any) => {
+        console.log(bookings);
+        this.bookingsAll = bookings;
+        this.categorizeBookings();
+      });
   }
 
 

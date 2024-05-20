@@ -235,20 +235,9 @@
         <p
           *ngFor="let price of priceFilter; let i = index"
           class="border-b p-2 px-4 cursor-pointer border-slate-100"
-          (click)="
-            searchForm.price =
-              '₹' +
-              priceFilter[i] +
-              ' - ₹' +
-              (i < priceFilter.length - 1 ? priceFilter[i + 1] : 'Above')
-          "
+          (click)="searchForm.price = price"
         >
-          {{
-            "₹" +
-              priceFilter[i] +
-              " - ₹" +
-              (i < priceFilter.length - 1 ? priceFilter[i + 1] : "Above")
-          }}
+          {{ price }}
         </p>
       </div>
     </div>

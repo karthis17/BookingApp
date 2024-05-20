@@ -35,7 +35,7 @@ export class SearchInputsComponent {
   showPriceFilter = false;
   roomOptions = false;
 
-  priceFilter = [100, 1500, 2500, 5000];
+  priceFilter = ['₹100 - ₹1500', '₹1500 - ₹2500', '₹2500 - ₹5000', 'above ₹5000'];
 
 
   searchForm: any;

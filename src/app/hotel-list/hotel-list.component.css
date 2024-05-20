@@ -1,0 +1,7 @@
+h4 {
+  @apply text-lg font-semibold;
+}
+
+li {
+  @apply my-2;
+}

@@ -21,6 +21,10 @@
     "@emailjs/browser": "^4.3.3",
     "@tailwindcss/typography": "^0.5.13",
     "emailjs": "^4.0.3",
+    "highlight.js": "^11.9.0",
+    "ngx-editor": "^17.5.4",
+    "ngx-quill": "^25.3.2",
+    "quill": "^2.0.2",
     "rxjs": "~7.8.0",
     "tailwindcss": "^3.4.3",
     "tslib": "^2.3.0",
@@ -28,6 +32,7 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^17.0.5",
+    "@angular/cli": "^17.3.7",
     "@angular/compiler-cli": "^17.0.0",
     "@types/jasmine": "~5.1.0",
     "jasmine-core": "~5.1.0",

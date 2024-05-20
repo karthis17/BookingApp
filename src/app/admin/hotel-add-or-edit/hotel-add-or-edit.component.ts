@@ -1,44 +1,29 @@
 import { Component } from '@angular/core';
 import { ActiveWindowService } from '../../service/active-window.service';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HotelService } from '../../service/hotel.service';
-import { all } from 'axios';
-import { flush } from '@angular/core/testing';
-
-interface Rooms {
-  roomName: string,
-  specifications: any[],
-  benefits: string[],
-  price: number,
-  amount: number,
-  taxAndFee: number,
-  description: string,
-  images: string,
-  availableRooms: number,
-  allowedGuest: number
-}
+import { Hotel } from '../../model/hotel.model';
+import { Room } from '../../model/room.model';
 
 @Component({
   selector: 'app-hotel-add-or-edit',
   standalone: true,
   imports: [FormsModule, CommonModule],
   templateUrl: './hotel-add-or-edit.component.html',
-  styleUrl: './hotel-add-or-edit.component.css'
+  styleUrls: ['./hotel-add-or-edit.component.css']
 })
 export class HotelAddOrEditComponent {
 
   constructor(private activeWin: ActiveWindowService, private hotel: HotelService) {
-
     this.activeWin.setactive('Hotel');
   }
 
+
   allData: any[] = [];
   edit: boolean = false;
-
   idToedit: string = '';
-
-  data: any;
+  data!: Hotel;
 
   get() {
     this.data = {
@@ -46,7 +31,7 @@ export class HotelAddOrEditComponent {
       location: '',
       amenities: [''] as string[],
       ratings: 0,
-      rooms: [] as Rooms[],
+      rooms: [] as Room[],
       basePrice: 0,
       address: '',
       images: [''] as string[],
@@ -55,16 +40,14 @@ export class HotelAddOrEditComponent {
       bookingPalicy: '',
       thumbnail: '',
       map: ''
-    }
+    };
 
     this.addRoom();
     this.hotel.getHotelDataAll().subscribe((data: any) => {
       this.allData = data.hotel;
       console.log(this.allData, data);
     });
-
   }
-
 
   ngOnInit() {
     this.get();
@@ -89,7 +72,7 @@ export class HotelAddOrEditComponent {
     this.data.thumbnail = e.target;
   }
 
-  addBenefit(room: Rooms) {
+  addBenefit(room: Room) {
     room.benefits.push('');
   }
 
@@ -98,7 +81,7 @@ export class HotelAddOrEditComponent {
   }
 
   trackByFn(index: number, item: any): number {
-    return index; // or return item.id; if you have a unique identifier
+    return index;
   }
 
   update(data: any) {
@@ -116,11 +99,17 @@ export class HotelAddOrEditComponent {
   }
 
   onSubmit() {
-    this.hotel.addHotel(this.data).subscribe(data => { console.log(data); this.get() });
+    this.hotel.addHotel(this.data).subscribe(data => {
+      console.log(data);
+      this.get();
+    });
   }
 
   onDelete(id: string) {
-    this.hotel.delete(id).subscribe(data => { console.log(data); this.get() });
+    this.hotel.delete(id).subscribe(data => {
+      console.log(data);
+      this.get();
+    });
   }
 
 }

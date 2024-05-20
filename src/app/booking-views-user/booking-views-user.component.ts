@@ -20,6 +20,7 @@ export class BookingViewsUserComponent {
   ngOnInit() {
     this.bookingsService.getUserBookings().subscribe((user: any) => {
       this.bookings = user;
+      console.log(this.bookings);
     });
   }
 
