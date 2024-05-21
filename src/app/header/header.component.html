@@ -109,18 +109,6 @@
                   role="menuitem"
                   >Bookings</a
                 >
-                <a
-                  href="#"
-                  class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-                  role="menuitem"
-                  >Item 2</a
-                >
-                <a
-                  href="#"
-                  class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-                  role="menuitem"
-                  >Item 3</a
-                >
               </div>
             </div>
           </div>
@@ -202,7 +190,12 @@
         </button>
 
         <div
-          class="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
+          class="origin-top-right absolute right-0 mt-2 transition-all {{
+            !dropdown
+              ? '-translate-y-3 opacity-0 '
+              : 'translate-y-0 opacity-100 '
+          }} w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
+          [style]="!dropdown ? 'visibility: hidden' : 'visibility: visible'"
           role="menu"
           aria-orientation="vertical"
           aria-labelledby="options-menu"
@@ -210,22 +203,10 @@
           <div class="py-1" role="none">
             <!-- Dropdown items -->
             <a
-              href="#"
+              [routerLink]="['/booking/history']"
               class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
               role="menuitem"
-              >Item 1</a
-            >
-            <a
-              href="#"
-              class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-              role="menuitem"
-              >Item 2</a
-            >
-            <a
-              href="#"
-              class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-              role="menuitem"
-              >Item 3</a
+              >Bookings</a
             >
           </div>
         </div>
